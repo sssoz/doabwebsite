@@ -8,13 +8,7 @@
 	
 	<!--/* <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Directory of  Open Access Books</title> */-->
 	<title layout:title-pattern="$CONTENT_TITLE">Page Title</title>
-	<link rel="stylesheet" th:href="@{/static-assets/css/styles.css?v=1.08}"/>
-	<link rel="stylesheet" th:href="@{/static-assets/css/contenttypes.css?v=1.08}"/>
-	
-	<link rel="stylesheet" th:href="@{/static-assets/fontawesome-pro-6.latest-web/css/all.min.css?v=1.00}"/>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-	
+	<link rel="stylesheet" th:href="@{/static-assets/css/main.min.css}"/>
 	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">	
 	
@@ -389,11 +383,9 @@
 	<!-- / Local version of the cdn scripts are available in static-assets/js/ in case the CDN disappears / -->
 
 	<script th:src="@{/static-assets/js/jquery-3.4.1.min.js}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
 	<script th:src="@{/static-assets/js/scripts.js?v=1.02}"></script>
-	<script th:src="@{/static-assets/js/menu.js}"></script>
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-	<!-- /* Loaded locally <script src="https://kit.fontawesome.com/33a853ba11.js" crossorigin="anonymous"></script> */ -->
+	<script th:src="@{/static-assets/js/main.min.js}"></script>
+
 	
 	<th:block th:insert="include/googleanalyticsscript :: script">
 		Google Analytics

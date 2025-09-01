@@ -1,0 +1,142 @@
+// ————————————————————————————————————————
+// main.scss
+// Import Bulma and OAPEN’s custom styles
+// Set colour palette, typography
+// and other customisations of Bulma
+// ————————————————————————————————————————
+
+// ————————————————————————————————————————
+// Import Bulma and OAPEN’s styles
+// ————————————————————————————————————————
+
+// Bring in OAPEN’s colour palette and typography variables
+@use "./oa-variables" as *;
+
+// Import Bulma’s entry-point with overrides
+@use "bulma/sass/utilities/initial-variables" with (
+  // Prefix everything with “bulma-”
+  $class-prefix: "bulma-",
+
+  // Disable all of Bulma’s default rounded border radius
+  $radius: 0,
+  $radius-small: 0,
+  $radius-medium: 0, 
+  $radius-large: 0,
+
+  // Keep .is-rounded available in case we do need it
+  $radius-rounded: 9999px,
+
+  // Make Bulma use Vremena Grotesk everywhere
+  $family-sans-serif: ("Vremena Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial),
+
+  // Map weights Bulma uses to our files
+  $weight-light:     300,
+  $weight-normal:    400,
+  $weight-medium:    500,
+  $weight-semibold:  500,
+  $weight-bold:      600,
+  $weight-extrabold: 600
+);
+
+// Map Bulma’s semantic colours to our custom variables
+@use "bulma/sass/utilities/derived-variables" with (
+  $primary:       $brand-primary-600,
+  $link:          $brand-primary-500,
+  $info:          $brand-primary-500,
+
+  $success:       $oa-colour-moss-600,
+  $warning:       $oa-colour-ochre-500,
+  $danger:        $oa-colour-rust-600,
+
+  $scheme-main:   $oa-colour-paper,
+  $scheme-invert: $oa-colour-ink,
+  $text:          $oa-colour-ink,
+
+  // Neutral surfaces & borders
+  $background:    $oa-colour-paper,
+  $border:        $oa-colour-stone-300,
+
+  $custom-colors: (
+    "brand":      ($brand-primary-600,     $oa-colour-paper),
+    "brand-hero": ($brand-primary-700,     $oa-colour-paper),
+    "ink":        ($oa-colour-ink,         $oa-colour-paper),
+    "paper":      ($oa-colour-paper,       $oa-colour-ink),
+    "stone-dark": ($oa-colour-stone-600,   $oa-colour-paper),
+    "stone-light":($oa-colour-stone-300,   $oa-colour-ink),
+    "moss":       ($oa-colour-moss-600,    $oa-colour-paper),
+    "ochre":      ($oa-colour-ochre-500,   $oa-colour-ink),
+    "rust":       ($oa-colour-rust-600,    $oa-colour-paper)
+  )
+);
+
+// Modify Bulma’s default title colours
+@use "bulma/sass/elements/title" with (
+  $title-color: inherit,
+  $subtitle-color: inherit,
+  $title-strong-color: inherit,
+  $subtitle-strong-color: inherit
+);
+
+// Pull in all of Bulma (base, components, layout, themes, helpers…)
+@use "bulma/bulma";
+
+// Our own custom oa-* classes — last resort, as Bulma should cover most use cases
+@use "./oa-custom-classes";
+
+// ————————————————————————————————————————
+// Bulma class overrides
+// ————————————————————————————————————————
+
+// Include a11y focus without shadows, since we are disabling/overriding them
+.bulma-input:focus,
+.bulma-textarea:focus,
+.bulma-select select:focus {
+  outline: 2px solid var(--bulma-link);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+// Context-aware link colours on dark brand-colour surfaces (700, 600)
+.bulma-has-background-brand-hero,
+.bulma-has-background-brand,
+.bulma-has-background-ink {
+  // Force high-contrast link colours
+  --bulma-link-text:         var(--bulma-paper);
+  --bulma-link-text-visited: var(--bulma-paper);
+  --bulma-link-text-hover:   color-mix(in srgb, var(--bulma-paper) 90%, var(--bulma-brand) 10%);
+
+  // Set a visible focus token for white controls inside dark sections
+  --oa-focus: color-mix(in srgb, var(--bulma-brand) 55%, var(--oa-colour-paper)); 
+
+  .bulma-input,
+  .bulma-textarea,
+  .bulma-select select {
+    background-color: transparent;
+    color: var(--bulma-paper);
+    border-color: var(--bulma-paper);
+  }
+
+  .bulma-input::placeholder,
+  .bulma-textarea::placeholder {
+    color: var(--bulma-stone-light);
+    opacity: 1;
+  }
+
+  .bulma-button:not([class*="bulma-is-"]) {
+    background-color: var(--bulma-ink);
+    color: var(--bulma-paper);
+    border-color: transparent;
+  }
+}
+
+// Enforce a11y link appearance ONLY for text links
+// Exclude navbar items, buttons, tags
+.bulma-content a {
+  &:not(.bulma-navbar-item),
+  &:not(.bulma-button),
+  &:not(.bulma-tag) {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: .18em;
+  }
+}

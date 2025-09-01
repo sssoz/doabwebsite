@@ -1,0 +1,65 @@
+// ————————————————————————————————————————
+// oa-variables.scss
+// Our custom colour and type variables
+// ————————————————————————————————————————
+
+// For map functions
+@use "sass:map";
+
+// ————————————————————————————————————————
+// OAPEN colour palette
+// ————————————————————————————————————————
+
+// Core neutrals
+$oa-colour-ink:        #0B0C0E !default; // main body text / iverted (dark theme) background
+$oa-colour-paper:      #F7F3E8 !default; // main background / inveted (dark theme) body text
+$oa-colour-stone-600:  #6B6A65 !default; // secondary text / inverted (dark theme) borders
+$oa-colour-stone-300:  #DAD5C8 !default; // subtle borders / inverted (dark theme) text
+
+// ————————————————————————————————————————
+// Primary colour families (to be selected with the team)
+// Tones: 700=hero/dark sections, 600=primary UI, 500=links/focus
+// All 500s pass AA against $colour-paper.
+// ————————————————————————————————————————
+
+$brand-sets: (
+  "navy": (
+    700: #0F1A33, // hero/dark sections
+    600: #1E2F57, // primary UI
+    500: #385BC2  // links & focus states
+  ),
+  "aubergine": (
+    700: #3A215B, // hero/dark sections
+    600: #603A8C, // primary UI 
+    500: #7A4EA9  // links & focus states
+  ),
+  "moss": (
+    700: #12483A, // hero/dark sections
+    600: #246B55, // primary UI 
+    500: #1C7A64  // links & focus states
+  ),
+  "charcoal": (
+    700: #1A1715, // hero/dark sections
+    600: #2A2420, // primary UI 
+    500: #3A332D  // links & focus states
+  )
+);
+
+$brand: "charcoal" !default; // Swap between the three options above
+
+// Function to get brand colours by tone
+@function brand($tone) {
+  $family: map.get($brand-sets, $brand);
+  @return if($family != null, map.get($family, $tone), null);
+}
+
+// Exposed tokens
+$brand-primary-700: brand(700);
+$brand-primary-600: brand(600);
+$brand-primary-500: brand(500);
+
+// Support accents
+// ***Use sparingly for semantics & emphasis***
+$oa-colour-moss-600:      #246B55 !default; // success
+$oa-colour-ochre-500:     #C69300 !default; // warning
+$oa-colour-rust-600:      #A33A2B !default; // danger
